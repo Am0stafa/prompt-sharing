@@ -107,14 +107,16 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
       </div>
 
       <p className='my-4 font-satoshi text-sm text-gray-700'>{promptText}</p>
-      {post.prompt.length > 300 && (
-        <button
-        onClick={handleShowMore}
-        className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md'
-      >
-        {showFullPrompt ? 'See Less' : 'See More'}
-      </button>
-      )}
+      <div className='text-center'>
+        {post.prompt.length > 300 && (
+          <button
+            onClick={handleShowMore}
+            className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md'
+          >
+            {showFullPrompt ? 'See Less' : 'See More'}
+          </button>
+        )}
+      </div>
       <p
         className='font-inter text-sm blue_gradient cursor-pointer'
         onClick={() => handleTagClick && handleTagClick(post.tag)}
