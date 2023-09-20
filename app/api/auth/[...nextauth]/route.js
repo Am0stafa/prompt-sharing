@@ -19,6 +19,7 @@ const handler = NextAuth({
   ],
   callbacks: {
     /**
+     * Basically get the data about the user and pass it to the session object.
      * Retrieves the session and updates the session user's id.
      *
      * @param {Object} session - The session object.
