@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "next/image"; // Image component from Next.js
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -12,18 +12,58 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
   const [copied, setCopied] = useState("");
 
+  /**
+   * Checks if the `post.tag` starts with a '#' character. If it does, assigns `post.tag` to the `tagText` variable. 
+   * Otherwise, concatenates '#' with `post.tag` and assigns the result to `tagText`.
+   */
+  const tagText = post.tag.startsWith('#') ? post.tag : `#${post.tag}`;
+  
+  /**
+   * Handles the click event on the profile section of a prompt card.
+   * If the logged-in user is the creator of the post, it redirects to their profile page.
+   * Otherwise, it redirects to the profile page of the post creator.
+   *
+   * @example
+   * handleProfileClick();
+   *
+   * @returns {void}
+   */
   const handleProfileClick = () => {
-    console.log(post);
+      // Log the `post` object to the console.
+      console.log(post);
 
-    if (post.creator._id === session?.user.id) return router.push("/profile");
+      // Check if the `post.creator._id` is equal to the `session?.user.id`.
+      if (post.creator._id === session?.user.id) return router.push("/profile");
 
-    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+      // If the condition is false, redirect to the "/profile/{post.creator._id}?name={post.creator.username}" page.
+      router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
   };
 
+  /**
+   * Handles the copying of the prompt text to the clipboard.
+   * 
+   * @example
+   * handleCopy();
+   * 
+   * @returns {void} None.
+   */
   const handleCopy = () => {
+    // Set the copied state variable to the value of post.prompt
     setCopied(post.prompt);
+
+    // Use the navigator.clipboard.writeText() method to write the post.prompt to the clipboard
     navigator.clipboard.writeText(post.prompt);
+
+    // Set a timeout of 3000 milliseconds to reset the copied state variable to false
     setTimeout(() => setCopied(false), 3000);
+  };
+
+  const [showFullPrompt, setShowFullPrompt] = useState(false);
+
+  const promptText = showFullPrompt ? post.prompt : post.prompt.slice(0, 300);
+
+  const handleShowMore = () => {
+    setShowFullPrompt(!showFullPrompt);
   };
 
   return (
@@ -35,7 +75,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         >
           <Image
             src={post.creator.image}
-            alt='user_image'
+            alt='user image'
             width={40}
             height={40}
             className='rounded-full object-contain'
@@ -65,12 +105,20 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         </div>
       </div>
 
-      <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
+      <p className='my-4 font-satoshi text-sm text-gray-700'>{promptText}</p>
+      {post.prompt.length > 300 && (
+        <button
+        onClick={handleShowMore}
+        className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md'
+      >
+        {showFullPrompt ? 'See Less' : 'See More'}
+      </button>
+      )}
       <p
         className='font-inter text-sm blue_gradient cursor-pointer'
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
-        #{post.tag}
+        {tagText}
       </p>
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (

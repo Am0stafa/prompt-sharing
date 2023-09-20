@@ -21,16 +21,23 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
 
-  // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
+  /**
+   * Fetches data from the "/api/prompt" endpoint and sets the retrieved data to the `allPosts` state variable.
+   * 
+   * @example
+   * fetchPosts();
+   * 
+   * @returns {void}
+   */
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
+      const response = await fetch("/api/prompt");
+      const data = await response.json();
 
-    setAllPosts(data);
+      setAllPosts(data);
   };
 
   useEffect(() => {
@@ -51,7 +58,7 @@ const Feed = () => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
-    // debounce method
+    // debounce
     setSearchTimeout(
       setTimeout(() => {
         const searchResult = filterPrompts(e.target.value);
