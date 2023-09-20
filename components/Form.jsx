@@ -1,13 +1,14 @@
-import Link from "next/link";
+import Link from "next/link"; // React Component that enables client-side transitions between routes.
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+  
   return (
     <section className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
         <span className='blue_gradient'>{type} Post</span>
       </h1>
       <p className='desc text-left max-w-md'>
-        {type} and share amazing prompts with the world, and let your
+        {type} and share educational prompts with the world, and let your
         imagination run wild with any AI-powered platform
       </p>
 
@@ -33,7 +34,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           <span className='font-satoshi font-semibold text-base text-gray-700'>
             Field of Prompt{" "}
             <span className='font-normal'>
-              (#product, #webdevelopment, #idea, etc.)
+              (#Jailbreak, #Development, etc.)
             </span>
           </span>
           <input

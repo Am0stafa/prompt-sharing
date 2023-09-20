@@ -2,7 +2,7 @@ import { Schema, model, models } from 'mongoose';
 
 const PromptSchema = new Schema({
   creator: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId, // the user id
     ref: 'User',
   },
   prompt: {
@@ -15,6 +15,7 @@ const PromptSchema = new Schema({
   }
 });
 
+//get the model if it exists or create a new one if it doesn't
 const Prompt = models.Prompt || model('Prompt', PromptSchema);
 
 export default Prompt;
