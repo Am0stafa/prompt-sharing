@@ -62,6 +62,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
   const promptText = showFullPrompt ? post.prompt : post.prompt.slice(0, 300);
 
+  // this function will handle the show more and show less functionality  
   const handleShowMore = () => {
     setShowFullPrompt(!showFullPrompt);
   };
