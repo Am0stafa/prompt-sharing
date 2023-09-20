@@ -5,8 +5,8 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 
 export const metadata = {
-  title: "Promptopia",
-  description: "Discover & Share AI Prompts",
+  title: "Hacking Prompts",
+  description: "Discover & Share AI hacking Prompts",
 };
 
 const RootLayout = ({ children }) => (
@@ -19,6 +19,7 @@ const RootLayout = ({ children }) => (
 
         <main className='app'>
           <Nav />
+          {/* we get the children from the prompts */}
           {children}
         </main>
       </Provider>
