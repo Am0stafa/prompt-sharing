@@ -1,6 +1,13 @@
 import Prompt from "@models/prompt";
 import { connectToDB } from "@utils/database";
-
+/**
+ * Retrieves a prompt from the database.
+ * 
+ * @param {Object} request - The request object containing information about the HTTP request.
+ * @param {Object} params - The params object containing the ID of the prompt.
+ * @returns {Object} - The response object containing the retrieved prompt or an error message.
+ * @throws {Error} - If any error occurs during the process.
+  */
 export const GET = async (request, { params }) => {
     try {
         await connectToDB()
@@ -14,7 +21,15 @@ export const GET = async (request, { params }) => {
         return new Response("Internal Server Error", { status: 500 });
     }
 }
-
+/**
+ * Updates a prompt in a MongoDB database.
+ * @param {object} request - The request object containing the prompt and tag data to be updated.
+ * @param {object} params - The parameters object containing the ID of the prompt to be updated.
+ * @returns {object} - A response object indicating the success or failure of the update operation.
+ *                    If the update is successful, the response will have a status code of 200 and a message of "Successfully updated the Prompts".
+ *                    If there is an error during the update operation, the response will have a status code of 500 and a message of "Error Updating Prompt".
+  * @throws {Error} - If any error occurs during the process.
+  */
 export const PATCH = async (request, { params }) => {
     const { prompt, tag } = await request.json();
 

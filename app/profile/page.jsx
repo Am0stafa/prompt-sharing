@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"; //React Hook that gives you access to the logged in user's session data.
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -23,10 +23,17 @@ const MyProfile = () => {
     if (session?.user.id) fetchPosts();
   }, [session?.user.id]);
 
+  // this function is called when the user clicks on the edit button
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
+  /**
+   * Handles the deletion of a prompt.
+   * 
+   * @param {object} post - The prompt object to be deleted.
+   * @returns {void}
+   */
   const handleDelete = async (post) => {
     const hasConfirmed = confirm(
       "Are you sure you want to delete this prompt?"
@@ -50,7 +57,7 @@ const MyProfile = () => {
   return (
     <Profile
       name='My'
-      desc='Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination'
+      desc='Welcome to your profile page. Share your exceptional prompts and inspire others with the power of your imagination for research purposes.'
       data={myPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}

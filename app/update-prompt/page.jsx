@@ -13,6 +13,7 @@ const UpdatePrompt = () => {
   const [post, setPost] = useState({ prompt: "", tag: "", });
   const [submitting, setIsSubmitting] = useState(false);
 
+  // Whenever the promptId changes, fetch the prompt details from the server.
   useEffect(() => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
@@ -27,6 +28,12 @@ const UpdatePrompt = () => {
     if (promptId) getPromptDetails();
   }, [promptId]);
 
+  /**
+   * Updates a prompt by sending a PATCH request to the server.
+   * 
+   * @param {Event} e - The event object representing the form submission.
+   * @returns {void}
+   */
   const updatePrompt = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
